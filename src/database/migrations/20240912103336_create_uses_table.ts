@@ -17,17 +17,10 @@ export async function up(knex: Knex): Promise<void> {
     table.string("password").notNullable(); // Password (hashed)
 
     // User type - normal user (0) or superuser (1)
-    table.string("user_type").notNullable().defaultTo("normal");
+    table.string("role").notNullable().defaultTo("user");
 
     // Timestamps
     table.timestamp("created_at").notNullable().defaultTo(knex.fn.now());
-    table
-      .bigInteger("created_by")
-      .unsigned()
-      .notNullable()
-      .references("id")
-      .inTable(TABLE_NAME)
-      .onDelete("CASCADE");
 
     table.timestamp("updated_at").nullable();
 

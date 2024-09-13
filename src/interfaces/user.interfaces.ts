@@ -1,6 +1,6 @@
 export enum Role {
-  USER,
-  SUPERUSER,
+  USER = "user",
+  SUPERUSER = "superuser",
 }
 export interface User {
   id: string;

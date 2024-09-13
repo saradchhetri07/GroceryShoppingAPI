@@ -7,6 +7,8 @@ import {
 } from "../schema/user.schema";
 const router = express.Router();
 
+console.log(`came to auth routes`);
+
 router.post("/signup", validateReqBody(createUserBodySchema), signUp);
 router.post("/login", validateReqBody(loginUserBodySchema), login);
 

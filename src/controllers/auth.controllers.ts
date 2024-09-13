@@ -14,7 +14,6 @@ export const login = async (
 ) => {
   try {
     const { body } = req;
-    console.log(`came to ${body}`);
 
     //retrieving email if it exists
     const existingUser = await AuthServices.getUserByEmail(body.email, "login");
@@ -33,6 +32,7 @@ export const login = async (
       id: existingUser.id,
       name: existingUser.name,
       email: existingUser.email,
+      role: existingUser.role,
     };
 
     const accessToken = sign(payload, config.jwt.secret!, {
