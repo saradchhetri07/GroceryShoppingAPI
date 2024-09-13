@@ -1,3 +1,4 @@
+import { NotFoundError } from "../error/NotFoundError";
 import { Order, OrderItem } from "../interfaces/order.interfaces";
 import { BaseModel } from "./base.models";
 
@@ -72,6 +73,22 @@ export class OrderModel extends BaseModel {
 
         // await trx("order_items").where("order_id", orderId).del();
       });
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+    }
+  }
+
+  static async getGroceries() {
+    try {
+      const groceries = await this.queryBuilder()
+        .table("grocery_items")
+        .where("inventory_level", ">", 0);
+      if (groceries!.length === 0) {
+        throw new NotFoundError("No groceries found");
+      }
+      return groceries;
     } catch (error) {
       if (error instanceof Error) {
         throw new Error(error.message);

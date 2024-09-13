@@ -78,6 +78,10 @@ This is a Grocery API built using Express.js for the backend. The backend uses P
 - **Path Parameters:**
   - `orderId` (string): ID of the order to delete.
 
+### **GET** `/orders`
+
+- **Description:** Retrieve a list of all orders.
+
 ### Example Request Body for Creating an Order
 
 ````json
@@ -92,6 +96,7 @@ This is a Grocery API built using Express.js for the backend. The backend uses P
         }
     ]
 }
+
 
 ## Setup Instructions
 

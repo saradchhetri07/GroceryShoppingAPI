@@ -40,3 +40,18 @@ export const cancelOrder = async (
     }
   }
 };
+
+export const getAvailableGrocery = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const groceries = await OrderServices.getAvailableGrocery();
+    return res.status(HTTPStatusCodes.OK).json({ data: groceries });
+  } catch (error) {
+    if (error instanceof Error) {
+      next(new BadRequestError(error.message));
+    }
+  }
+};

@@ -12,3 +12,7 @@ export const createOrder = (
 export const cancelOrder = (orderId: string) => {
   return OrderModel.OrderModel.cancerOrder(orderId);
 };
+
+export const getAvailableGrocery = () => {
+  return OrderModel.OrderModel.getGroceries();
+};
