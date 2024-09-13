@@ -84,26 +84,27 @@ This is a Grocery API built using Express.js for the backend. The backend uses P
 
 ### Example Request Body for Creating an Order
 
-````json
+```json
 {
-    "status": "pending",
-    "totalQuantity": 2,
-    "totalPrice": 10,
-    "orderItems": [
-        {
-            "itemId": 1,
-            "quantity": 2
-        }
-    ]
+  "status": "pending",
+  "totalQuantity": 2,
+  "totalPrice": 10,
+  "orderItems": [
+    {
+      "itemId": 1,
+      "quantity": 2
+    }
+  ]
 }
-
+```
 
 ## Setup Instructions
 
 - Clone the repository and proceed with the way more suitable for you
-  ```bash
+
+```bash
   git clone https://github.com/saradchhetri07/GroceryShoppingAPI.git
-````
+```
 
 - Create an new `.env` file inside `server` based on the `.env.example` file
 
