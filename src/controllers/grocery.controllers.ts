@@ -13,8 +13,6 @@ export const createGroceryItem = async (
     const { body } = req;
     const userId = req.user!.id;
 
-    console.log(`inside controller create grocery item`, body);
-
     await GroceryServices.createGroceryItem(body, userId);
     return res
       .status(HTTPStatusCodes.CREATED)

@@ -23,7 +23,7 @@ export class OrderModel extends BaseModel {
 
         // Prepare order items for insertion
         const orderItemsToCreate = orderItems.map((item) => ({
-          order_id: orderId,
+          order_id: orderId.orderId,
           item_id: item.itemId,
           quantity: item.quantity,
         }));
@@ -40,7 +40,7 @@ export class OrderModel extends BaseModel {
       });
     } catch (error) {
       if (error instanceof Error) {
-        throw new Error("Internal Server Error");
+        throw new Error(error.message);
       }
     }
   }
@@ -49,16 +49,19 @@ export class OrderModel extends BaseModel {
     try {
       await this.queryBuilder().transaction(async (trx) => {
         // Retrieve order_items for the given orderId
-        const orderItems = await trx("order_items").where("order_id", orderId);
+        const orderItems = await trx("order_items")
+          .where("order_id", orderId)
+          .returning("*");
 
         if (!orderItems || orderItems.length === 0) {
           throw new Error("Order items not found");
         }
 
         // Restore inventory levels by incrementing the quantities in grocery_items
+
         for (const item of orderItems) {
           await trx("grocery_items")
-            .where("item_id", item.item_id)
+            .where("item_id", item.itemId)
             .increment("inventory_level", item.quantity);
         }
 
@@ -67,12 +70,11 @@ export class OrderModel extends BaseModel {
           .where("order_id", orderId)
           .update({ status: "canceled" });
 
-        // Optionally, delete the order_items (or you can update them to indicate cancellation)
-        await trx("order_items").where("order_id", orderId).del();
+        // await trx("order_items").where("order_id", orderId).del();
       });
     } catch (error) {
       if (error instanceof Error) {
-        throw new Error("Internal Server Error");
+        throw new Error(error.message);
       }
     }
   }

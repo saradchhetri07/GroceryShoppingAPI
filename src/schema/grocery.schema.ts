@@ -1,7 +1,5 @@
 import Joi from "joi";
 
-console.log(`insisde grocery schema`);
-
 export const createGroceryItemSchema = Joi.object({
   name: Joi.string().required().messages({
     "any.required": "name is required",

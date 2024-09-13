@@ -29,15 +29,9 @@ export function authenticate(req: Request, res: Response, next: NextFunction) {
     return;
   }
   try {
-    console.log(`user at authenticate before`);
-    console.log(`obtained token is ${token}`);
-
     const user = verify(token[1], config.jwt.secret!) as User;
 
-    console.log(`user at authenticate after${user}`);
-
     req.user = user;
-    console.log(`request user looks like`, req.user);
 
     next();
   } catch (error) {

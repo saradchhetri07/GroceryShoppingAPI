@@ -1,0 +1,28 @@
+services:
+  backend:
+    build: .
+    container_name: backend-groceryapplication
+    ports:
+      - 8000:3000
+    env_file: .env
+    environment:
+      - TZ="Asia/Katmandu"
+    depends_on:
+      database:
+        condition: service_started
+        restart: true
+
+  database:
+    image: postgres:16.3-alpine3.19
+    container_name: database-task-management
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=groceryapp
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

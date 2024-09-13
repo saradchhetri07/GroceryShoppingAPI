@@ -13,6 +13,7 @@ export const createOrder = async (
     const { body } = req;
     const userId = req.user!.id;
     const { orderItems } = body;
+
     await OrderServices.createOrder(body, userId, orderItems);
     return res
       .status(HTTPStatusCodes.CREATED)

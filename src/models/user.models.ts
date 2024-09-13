@@ -23,8 +23,6 @@ export class UserModel extends BaseModel {
 
   static async getUserByEmail(email: string) {
     try {
-      console.log(`came inside get user email`);
-
       const user = await this.queryBuilder()
         .table("users")
         .select(
